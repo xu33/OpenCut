@@ -56,12 +56,12 @@ function MediaItemWithContextMenu({
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem>Export clips</ContextMenuItem>
+        <ContextMenuItem>导出影片</ContextMenuItem>
         <ContextMenuItem
           variant="destructive"
           onClick={(e) => onRemove(e, item.id)}
         >
-          Delete
+          删除
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
@@ -141,7 +141,7 @@ export function MediaView() {
   };
 
   const filteredMediaItems = useMemo(() => {
-    let filtered = mediaFiles.filter((item) => {
+    const filtered = mediaFiles.filter((item) => {
       if (item.ephemeral) return false;
       return true;
     });
@@ -289,7 +289,7 @@ export function MediaView() {
               ) : (
                 <CloudUpload className="h-4 w-4" />
               )}
-              <span>Upload</span>
+              <span>上传</span>
             </Button>
             <div className="flex items-center gap-0">
               <TooltipProvider>

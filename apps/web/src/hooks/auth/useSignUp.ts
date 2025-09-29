@@ -21,6 +21,8 @@ export function useSignUp() {
       password,
     });
 
+    console.log("Sign-up error:", error);
+
     if (error) {
       setError(error.message || "An unexpected error occurred.");
       setIsEmailLoading(false);

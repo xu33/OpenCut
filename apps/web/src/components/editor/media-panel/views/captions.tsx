@@ -49,6 +49,7 @@ export function Captions() {
   }, []);
 
   const handleGenerateTranscript = async () => {
+    alert(1);
     try {
       setIsProcessing(true);
       setError(null);

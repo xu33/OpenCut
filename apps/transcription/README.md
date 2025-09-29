@@ -1,14 +1,18 @@
-Before you follow anything in this guide, please make sure you've followed the steps in the [README](../../README.md) (under "Optional: Auto-captions (Transcription) Setup").
+当然可以，以下是你的 README.md 中文翻译：
 
-Open your terminal and make sure you're in the `apps/transcription` directory.
+---
 
-1. Create virtual environment
+在按照本指南操作前，请确保你已经完成了[主项目 README](../../README.md)中“可选：自动字幕（转写）设置”部分的步骤。
+
+打开终端，确保你当前在 transcription 目录下。
+
+1. 创建虚拟环境
 
 ```bash
 python -m venv env
 ```
 
-2. Activate it
+2. 激活虚拟环境
 
 **Windows:**
 
@@ -22,47 +26,48 @@ env\Scripts\activate
 source env/bin/activate
 ```
 
-> Note: if you're using VS Code/Cursor and you're seeing errors with the imports about the modules not being found,
-> You might have to press CTRL + Shift + P -> Python: Select Interpreter -> Enter interpreter path -> Find -> env -> scripts -> python.exe
+> 注意：如果你在 VS Code/Cursor 里看到导入模块报错，  
+> 你可能需要按 CTRL + Shift + P -> Python: Select Interpreter -> 输入解释器路径 -> 查找 env -> scripts -> python.exe
 
-3. Install libraries/packages/whatever you wanna call them
+3. 安装依赖库/包
 
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Make sure you have a Modal account. If you don't: [create one](https://modal.com/)
+4. 确保你有一个 Modal 账号。如果没有：[注册一个](https://modal.com/)
 
-> If you don't know what Modal is: it allows us to process the actual audio and transcribe with Whisper by providing the infra to run Python code with a lot of RAM, generally affordable.
+> 如果你不知道 Modal 是什么：它允许我们用大量内存处理音频并用 Whisper 进行转写，Modal 提供了运行 Python 代码的基础设施，价格也比较实惠。
 
-5. Once you've got a Modal accoumt, run this:
+5. 有了 Modal 账号后，运行：
 
 ```bash
 python -m modal setup
 ```
 
-It's gonna open a browser so you can authenticate.
+这会打开浏览器让你进行认证。
 
-6. Test it if you want to make sure it actually works:
+6. 测试一下，确保一切正常：
 
 ```bash
 modal run transcription.py
 ```
 
-6. Deploy the function!
+6. 部署函数！
 
 ```bash
 modal deploy transcription.py
 ```
 
-7. Set the required secrets in Modal
+7. 在 Modal 设置所需的密钥（Secrets）
 
-So the script we just deployed interacts with Cloudflare to do two things:
+我们刚刚部署的脚本需要和 Cloudflare 交互，做两件事：
 
-- Download the audio (so it can be transcribed with Whisper)
-- Delete the file after processing (privacy)
+- 下载音频文件（用于 Whisper 转写）
+- 处理完后删除文件（保护隐私）
 
-To do those things, the script needs access to these environment variables:
+为此，脚本需要访问以下环境变量：
+
 ```bash
 CLOUDFLARE_ACCOUNT_ID=your-account-id
 R2_ACCESS_KEY_ID=your-access-key-id
@@ -70,17 +75,19 @@ R2_SECRET_ACCESS_KEY=your-secret-access-key
 R2_BUCKET_NAME=opencut-transcription
 ```
 
-Remember, we set these earlier in `.env.local`.
+这些变量我们之前已经在 `.env.local` 里设置过。
 
-So let's do it:
+现在来操作：
 
-   - Go to [Modal Secrets](https://modal.com/secrets/mazewinther/main)
-   - Click "Custom" and enter "opencut-r2-secrets" for the name.
-   - Now you can just click "Import .env" and copy/paste the 4 variables from your `.env.local` file. Copy and paste these only:
-      ```bash
-      CLOUDFLARE_ACCOUNT_ID=your-account-id
-      R2_ACCESS_KEY_ID=your-access-key-id
-      R2_SECRET_ACCESS_KEY=your-secret-access-key
-      R2_BUCKET_NAME=opencut-transcription
-      ```
-    - Click "Done" and you should see some cool particles!
+- 打开 [Modal Secrets](https://modal.com/secrets/mazewinther/main)
+- 点击“Custom”，名称填写 "opencut-r2-secrets"
+- 点击 "Import .env"，然后复制粘贴你 `.env.local` 文件里的这 4 个变量。只复制如下内容：
+  ```bash
+  CLOUDFLARE_ACCOUNT_ID=your-account-id
+  R2_ACCESS_KEY_ID=your-access-key-id
+  R2_SECRET_ACCESS_KEY=your-secret-access-key
+  R2_BUCKET_NAME=opencut-transcription
+  ```
+- 点击 "Done"，你应该会看到一些很酷的粒子动画！
+
+---
